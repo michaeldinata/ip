@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -10,7 +10,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greet();
-        echo();;
+        GetCommand();
         bye();
     }
 
@@ -19,15 +19,29 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void echo(){
+    public static void GetCommand(){
+        Vector<String> ListToDo = new Vector<String>();
         Scanner in = new Scanner(System.in);
+        int currentCommandNumber = 0;
 
         while(true){
             String command = in.nextLine();
             if(command.compareTo("bye") == 0){
                 return;
             }
-            System.out.println(command);
+            else if(command.compareTo("list") == 0){
+                list(ListToDo);
+            }
+            else{
+                ListToDo.add(command);
+                System.out.println("Added: " + command);
+            }
+        }
+    }
+
+    public static void list(Vector ListToDo){
+        for(int i = 0; i < ListToDo.size(); i++){
+            System.out.println((i+1) + ". " + ListToDo.get(i));
         }
     }
 
