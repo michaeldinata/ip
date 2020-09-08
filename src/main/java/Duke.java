@@ -1,5 +1,15 @@
 import java.util.Scanner;
-import java.text.BreakIterator;
+
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+
+import exceptions.DukeException;
+import exceptions.EmptyCommandException;
+import exceptions.EmptyDescriptionException;
+import exceptions.InvalidCommandException;
+import exceptions.NoDateGivenException;
 
 public class Duke {
 
