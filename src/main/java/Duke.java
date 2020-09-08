@@ -42,6 +42,8 @@ public class Duke {
             try{
                 command = input.nextLine();
 
+                // If user did not put any command, then 
+                // throw empty command exception
                 if(command == null || command.isEmpty()){
                     throw new EmptyCommandException();
                 }
@@ -58,9 +60,15 @@ public class Duke {
                     addDeadline(command);
                 } else if(command.contains("event")){
                     addEvent(command);
-                } 
+                } else{
+                    throw new InvalidCommandException();
+                }
             } catch(EmptyCommandException e){
+                System.out.println();
                 System.out.println("You did not give me any command");
+            } catch(InvalidCommandException e){
+                System.out.println();
+                System.out.println("Please give me a valid command, master...");
             }
         }
     }
