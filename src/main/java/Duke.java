@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Duke {
 
@@ -36,20 +36,31 @@ public class Duke {
 
         while(true){
             System.out.println("Please give me your command");
-            String command = input.nextLine();
 
-            if(command.equals("bye")){
-                return;
-            } else if(command.equals("list")){
-                listOutTasks();
-            } else if(command.contains("done")){
-                markAsDone(command);
-            } else if(command.contains("todo")){
-                addNewToDo(command);
-            } else if(command.contains("deadline")){
-                addDeadline(command);
-            } else if(command.contains("event")){
-                addEvent(command);
+            String command;
+
+            try{
+                command = input.nextLine();
+
+                if(command == null || command.isEmpty()){
+                    throw new EmptyCommandException();
+                }
+
+                if(command.equals("bye")){
+                    return;
+                } else if(command.equals("list")){
+                    listOutTasks();
+                } else if(command.contains("done")){
+                    markAsDone(command);
+                } else if(command.contains("todo")){
+                    addNewToDo(command);
+                } else if(command.contains("deadline")){
+                    addDeadline(command);
+                } else if(command.contains("event")){
+                    addEvent(command);
+                } 
+            } catch(EmptyCommandException e){
+                System.out.println("You did not give me any command");
             }
         }
     }
