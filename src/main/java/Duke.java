@@ -11,13 +11,6 @@ public class Duke {
     static Task[] tasksToDo = new Task[MAX_TASKS];
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
         greet();
         GetCommand();
         bye();
@@ -28,8 +21,8 @@ public class Duke {
     */
     public static void greet(){
         System.out.println(SEPARATING_LINE);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println("Welcome back, master");
+        System.out.println("Your command is my command...");
         System.out.println(SEPARATING_LINE);
         System.out.println();
     }
@@ -42,6 +35,7 @@ public class Duke {
         Scanner input = new Scanner(System.in);
 
         while(true){
+            System.out.println("Please give me your command");
             String command = input.nextLine();
 
             if(command.equals("bye")){
@@ -66,6 +60,8 @@ public class Duke {
     */
     public static void listOutTasks(){
         System.out.println(SEPARATING_LINE);
+        System.out.println("    You currently have " + currentTaskCount 
+                            + " items to do in your list, master...");
         for(int i = 0; i < currentTaskCount; i++){
             Task currentTask = tasksToDo[i];
             int currentNum = i+1;
@@ -141,7 +137,7 @@ public class Duke {
     */
     public static void acknowledgeTaskAddition(Task task){
         System.out.println(SEPARATING_LINE);
-        System.out.println("    Got it. I've added this task: ");
+        System.out.println("    Understood. I've added this into the list.. ");
         printTaskStatus(task);
         System.out.println(SEPARATING_LINE);
         System.out.println();
@@ -160,6 +156,6 @@ public class Duke {
     * Prints goodbye
     */
     public static void bye(){
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Have a safe journey");
     }
 }
