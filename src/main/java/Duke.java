@@ -19,10 +19,13 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greet();
-        GetTask();
+        GetCommand();
         bye();
     }
-
+    
+    /**
+    * Greets the user 
+    */
     public static void greet(){
         System.out.println(SEPARATING_LINE);
         System.out.println("Hello! I'm Duke");
@@ -31,11 +34,15 @@ public class Duke {
         System.out.println();
     }
 
-    public static void GetTask(){
-        Scanner in = new Scanner(System.in);
+    /**
+    * Continuously gets command from the user
+    * until the user types out "bye"
+    */
+    public static void GetCommand(){
+        Scanner input = new Scanner(System.in);
 
         while(true){
-            String command = in.nextLine();
+            String command = input.nextLine();
 
             if(command.equals("bye")){
                 return;
@@ -53,6 +60,10 @@ public class Duke {
         }
     }
 
+    /**
+    * Lists out the current tasks that the 
+    * user has typed in the bot so far
+    */
     public static void listOutTasks(){
         System.out.println(SEPARATING_LINE);
         for(int i = 0; i < currentTaskCount; i++){
@@ -65,15 +76,28 @@ public class Duke {
         System.out.println();
     }
 
+    /**
+    * Marks the task that the user indicated to be done
+    * by changing the cross to a tick and then
+    * prints out the task that was done
+    *
+    * @param command the current command passed from user input
+    */
     public static void markAsDone(String command){
         int indexTaskDone = Integer.parseInt(command.substring(5, command.length()));
         Task currentTask = tasksToDo[indexTaskDone-1];
         System.out.println(SEPARATING_LINE);
         currentTask.markAsDone();
+        printTaskStatus(currentTask);
         System.out.println(SEPARATING_LINE);
         System.out.println();
     }
 
+    /**
+    * Adds a "To Do" task in the bot
+    *
+    * @param command the current command passed from user input
+    */
     public static void addNewToDo(String command){
         String extractedCommand = command.substring(TODO_LEN, command.length());
         ToDo newToDo = new ToDo(extractedCommand);
@@ -81,6 +105,11 @@ public class Duke {
         acknowledgeTaskAddition(newToDo);
     }
 
+    /**
+    * Adds a "Deadline" task in the bot
+    *
+    * @param command the current command passed from user input
+    */
     public static void addDeadline(String command){
         int positionOfBy = command.indexOf("/by");
         String extractedCommand = command.substring(DEADLINE_LEN, positionOfBy);
@@ -90,6 +119,11 @@ public class Duke {
         acknowledgeTaskAddition(newDeadline);
     }
 
+    /**
+    * Adds a "Event" task in the bot
+    *
+    * @param command the current command passed from user input
+    */
     public static void addEvent(String command){
         int positionOfAt = command.indexOf("/at");
         String extractedCommand = command.substring(EVENT_LEN, positionOfAt);
@@ -99,6 +133,12 @@ public class Duke {
         acknowledgeTaskAddition(newEvent);
     }
 
+    /**
+    * Acknowledges the addition of task by printing
+    * that the bot understood the task
+    *
+    * @param task the current task (To Do, Deadline or Event)
+    */
     public static void acknowledgeTaskAddition(Task task){
         System.out.println(SEPARATING_LINE);
         System.out.println("    Got it. I've added this task: ");
@@ -107,10 +147,18 @@ public class Duke {
         System.out.println();
     }
 
+    /**
+    * Prints the task status at hand
+    *
+    * @param task the current task (To Do, Deadline or Event)
+    */
     public static void printTaskStatus(Task task){
         System.out.println(task.toString());
     }
 
+    /**
+    * Prints goodbye
+    */
     public static void bye(){
         System.out.println("Bye. Hope to see you again soon!");
     }
