@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import tasks.Task;
 import tasks.ToDo;
@@ -14,13 +15,11 @@ import exceptions.NoDateGivenException;
 public class Duke {
 
     public static final String SEPARATING_LINE = "  ________________________________________";
-    public static final int MAX_TASKS = 100;
     public static final int TODO_LEN = 5;
     public static final int EVENT_LEN = 6;
     public static final int DEADLINE_LEN = 9;
     public static final int DONE_LEN = 5;
-    public static int currentTaskCount = 0;
-    static Task[] tasksToDo = new Task[MAX_TASKS];
+    static ArrayList<Task> tasksToDo = new ArrayList<>();
 
     public static void main(String[] args) {
         greet();
@@ -93,10 +92,11 @@ public class Duke {
     */
     public static void listOutTasks(){
         System.out.println(SEPARATING_LINE);
+        int currentTaskCount = tasksToDo.size();
         System.out.println("    You currently have " + currentTaskCount 
                             + " items to do in your list, master...");
         for(int i = 0; i < currentTaskCount; i++){
-            Task currentTask = tasksToDo[i];
+            Task currentTask = tasksToDo.get(i);
             int currentNum = i+1;
             System.out.print("  " + currentNum + ". ");
             printTaskStatus(currentTask);
@@ -114,7 +114,7 @@ public class Duke {
     */
     public static void markAsDone(String command){
         int indexTaskDone = Integer.parseInt(command.substring(DONE_LEN, command.length()));
-        Task currentTask = tasksToDo[indexTaskDone-1];
+        Task currentTask = tasksToDo.get(indexTaskDone-1);
         System.out.println(SEPARATING_LINE);
         currentTask.markAsDone();
         printTaskStatus(currentTask);
@@ -136,7 +136,7 @@ public class Duke {
                 throw new EmptyDescriptionException();
             }
             ToDo newToDo = new ToDo(extractedCommand);
-            tasksToDo[currentTaskCount++] = newToDo;
+            tasksToDo.add(newToDo);
             acknowledgeTaskAddition(newToDo);
         } catch(StringIndexOutOfBoundsException e){
             System.out.println();
@@ -169,7 +169,7 @@ public class Duke {
             }
 
             Deadline newDeadline = new Deadline(extractedCommand, by);
-            tasksToDo[currentTaskCount++] = newDeadline;
+            tasksToDo.add(newDeadline);
             acknowledgeTaskAddition(newDeadline);
         } catch(NoDateGivenException e){
             System.out.println();
@@ -203,7 +203,7 @@ public class Duke {
             }
 
             Event newEvent = new Event(extractedCommand, at);
-            tasksToDo[currentTaskCount++] = newEvent;
+            tasksToDo.add(newEvent);
             acknowledgeTaskAddition(newEvent);
         } catch(NoDateGivenException e){
             System.out.println();
