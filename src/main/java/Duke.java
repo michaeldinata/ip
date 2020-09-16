@@ -19,6 +19,7 @@ public class Duke {
     public static final int EVENT_LEN = 6;
     public static final int DEADLINE_LEN = 9;
     public static final int DONE_LEN = 5;
+    public static final int DELETE_LEN = 7;
     static ArrayList<Task> tasksToDo = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -73,6 +74,8 @@ public class Duke {
                     addDeadline(command);
                 } else if(command.contains("event")){
                     addEvent(command);
+                } else if (command.contains("delete")){
+                    deleteTask(command);
                 } else{
                     throw new InvalidCommandException();
                 }
@@ -224,6 +227,22 @@ public class Duke {
         System.out.println(SEPARATING_LINE);
         System.out.println("    Understood. I've added this into the list.. ");
         printTaskStatus(task);
+        System.out.println(SEPARATING_LINE);
+        System.out.println();
+    }
+
+    /**
+    * Deletes the task that the user specifies
+    *
+    * @param command the current command passed from user input
+    */
+    public static void deleteTask(String command){
+        int indexTaskDelete = Integer.parseInt(command.substring(DELETE_LEN, command.length()));
+        Task currentTask = tasksToDo.get(indexTaskDelete-1);
+        System.out.println(SEPARATING_LINE);
+        System.out.println("Noted. I have deleted this task:");
+        printTaskStatus(currentTask);
+        tasksToDo.remove(indexTaskDelete-1);
         System.out.println(SEPARATING_LINE);
         System.out.println();
     }
