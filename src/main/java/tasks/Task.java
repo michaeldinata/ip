@@ -13,6 +13,10 @@ public class Task{
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
+    public boolean getIsDone(){
+        return isDone;
+    }
+
     public String getDescription(){
         return description;
     }
@@ -23,10 +27,17 @@ public class Task{
 
     public void markAsDone(){
         this.isDone = true;
-        System.out.println("    Nice! I've marked this task as done: ");
     }
 
     public String toString(){
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    public String getBy(){
+        return this.getBy();
+    }
+
+    public String getAt(){
+        return this.getAt();
     }
 }
