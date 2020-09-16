@@ -8,7 +8,11 @@ public class Event extends Task{
         this.at = at;
     }
 
+    public String getAt(){
+        return this.at;
+    }
+
     public String toString() {
-        return "    [E]" + super.toString() + "(at: " + at + ")";
+        return "    [E]" + super.toString() + " (at: " + at + ")";
     }
 }
