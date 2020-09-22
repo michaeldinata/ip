@@ -61,7 +61,6 @@ Example of usage:
 Expected outcome:
 
 `Understood. I've added this into the list..`
-
 `[D][✘] CS2113 Project (by: end of this month)`
 
 ______________________________________________________________________________________________________________________________________
@@ -79,7 +78,6 @@ Example of usage:
 Expected outcome:
 
 `Understood. I've added this into the list..` 
-
 `[E][✘] wedding (at: tomorrow 2359)`
 
 ______________________________________________________________________________________________________________________________________
