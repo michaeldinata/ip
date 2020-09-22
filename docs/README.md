@@ -57,8 +57,8 @@ Example of usage:
 
 Expected outcome:
 
-`Understood. I've added this into the list.. 
- [D][✘] CS2113 Project (by: end of this month)`
+`Understood. I've added this into the list..`
+`[D][✘] CS2113 Project (by: end of this month)`
 
 ### `event (action) /at (date/time)` 
 
@@ -72,70 +72,70 @@ Example of usage:
 
 Expected outcome:
 
-`Understood. I've added this into the list.. 
- [E][✘] wedding (at: tomorrow 2359)`
+`Understood. I've added this into the list..` 
+`[E][✘] wedding (at: tomorrow 2359)`
 
-### 'list'
+### `list`
 
 This command will list out all the existing tasks in the list, in the order that they were added into the list
 
 Example of usage:
 
-'list'
+`list`
 
 Expected outcome:
 
-'You currently have 4 items to do in your list, master...
- 1.     [T][✘] CS2113 Project
- 2.     [E][✘] wedding (at: tomorrow 2359)'
+`You currently have 4 items to do in your list, master...`
+`1.     [T][✘] CS2113 Project`
+`2.     [E][✘] wedding (at: tomorrow 2359)`
 
-### 'done (taskIndex)'
+### `done (taskIndex)`
 
 Command takes in the index of a task as shown in 'list' command, and marks that task as done
 
 Example of usage:
 
-'done 2'
+`done 2`
 
 Expected outcome:
 
-'Nice! I've marked this task as done: 
- [E][✓] wedding (at: tomorrow 2359)'
+`Nice! I've marked this task as done:`
+`[E][✓] wedding (at: tomorrow 2359)`
 
-### 'delete (taskIndex)'
+### `delete (taskIndex)`
 
 Command takes in the index of a task as shown in 'list' command, and deletes that task from the list
 
 Example of usage:
 
-'delete 2'
+`delete 2`
 
 Expected outcome:
 
-'Noted. I have deleted this task:
- [E][✓] wedding (at: tomorrow 2359)'
+`Noted. I have deleted this task:`
+`[E][✓] wedding (at: tomorrow 2359)`
 
-### 'find (description)'
+### `find (description)`
 
 Command takes in a description and searches through the whole list of tasks, and returns the tasks that matches with the description given by the user
 
 Example of usage:
 
-'find Project'
+`find Project`
 
 Expected outcome:
 
-'Here are the tasks that match what you are looking for, master
- 1.     [T][✘] CS2113 Project '
+`Here are the tasks that match what you are looking for, master`
+`1.     [T][✘] CS2113 Project`
 
- ### 'bye'
+ ### `bye`
 
  This command will save the current task into a file and exits the application
 
  Example of usage:
 
- 'bye'
+ `bye`
 
  Expected outcome:
 
- 'Have a safe journey'
+`Have a safe journey`
