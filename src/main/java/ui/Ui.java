@@ -10,6 +10,7 @@ public class Ui{
     /**
     * Tells the user that there was something wrong loading 
     * the file
+    *
     */
     public void showLoadingError(){
         System.out.println("Sorry master, I am having difficulties finding" + 
@@ -18,6 +19,7 @@ public class Ui{
 
     /**
     * Greets the user 
+    *
     */
     public void greet(){
         System.out.println(SEPARATING_LINE);
@@ -29,6 +31,7 @@ public class Ui{
 
     /**
     * Requests for new command from the user
+    *
     */
     public void requestNewCommand(){
         System.out.println("Please give me your command");
@@ -36,6 +39,7 @@ public class Ui{
 
     /**
     * Tells the user that he did not give any command
+    *
     */
     public void showEmptyCommandError(){
         System.out.println();
@@ -44,6 +48,7 @@ public class Ui{
 
     /**
     * Tells the user that the command given was invalid
+    *
     */
     public void showInvalidCommandError(){
         System.out.println();
@@ -52,6 +57,7 @@ public class Ui{
 
     /**
     * Tells the user that the file was not saved properly
+    *
     */
     public void showFileUnsavedError(){
         System.out.println("Your file was not saved properly");
@@ -59,6 +65,7 @@ public class Ui{
 
     /**
     * Bids the user goodbye
+    *
     */
     public void bye(){
         System.out.println("Have a safe journey");
