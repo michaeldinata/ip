@@ -75,6 +75,8 @@ public class Duke {
                     tasks.addEvent(command);
                 } else if (command.contains("delete")){
                     tasks.deleteTask(command);
+                } else if(command.contains("find")){
+                    tasks.findTask(command);
                 } else{
                     throw new InvalidCommandException();
                 }

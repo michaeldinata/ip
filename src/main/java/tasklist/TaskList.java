@@ -34,12 +34,13 @@ public class TaskList{
     public void listOutTasks(){
         System.out.println(SEPARATING_LINE);
         int currentTaskCount = tasksToDo.size();
+        int currentNum = 1;
         ui.showCurrentTaskCount(currentTaskCount);
-        for(int i = 0; i < currentTaskCount; i++){
-            Task currentTask = tasksToDo.get(i);
-            int currentNum = i+1;
+
+        for(Task t: tasksToDo){
             System.out.print("  " + currentNum + ". ");
-            printTaskStatus(currentTask);
+            currentNum++;
+            printTaskStatus(t);
         }
         System.out.println(SEPARATING_LINE);
         System.out.println();
@@ -53,14 +54,22 @@ public class TaskList{
     * @param command the current command passed from user input
     */
     public void markAsDone(String command){
-        int indexTaskDone = parser.findIndexOfTaskDone(command);
-        Task currentTask = tasksToDo.get(indexTaskDone-1);
-        System.out.println(SEPARATING_LINE);
-        currentTask.markAsDone();
-        ui.showMarkTaskAsDone();
-        printTaskStatus(currentTask);
-        System.out.println(SEPARATING_LINE);
-        System.out.println();
+        try{
+            int indexTaskDone = parser.findIndexOfTaskDone(command);
+            Task currentTask = tasksToDo.get(indexTaskDone-1);
+            System.out.println(SEPARATING_LINE);
+            currentTask.markAsDone();
+            ui.showMarkTaskAsDone();
+            printTaskStatus(currentTask);
+            System.out.println(SEPARATING_LINE);
+            System.out.println();
+        } catch(StringIndexOutOfBoundsException e){
+            ui.showMissingCompletedIndex();
+        } catch(NumberFormatException e){
+            ui.showMissingCompletedIndex();
+        } catch(IndexOutOfBoundsException e){
+            ui.showMarkDoneOutOfBounds();
+        }
     }
 
     /**
@@ -169,14 +178,69 @@ public class TaskList{
     * @param command the current command passed from user input
     */
     public void deleteTask(String command){
-        int indexTaskDelete = parser.findIndexToDelete(command);
-        Task currentTask = tasksToDo.get(indexTaskDelete-1);
-        System.out.println(SEPARATING_LINE);
-        ui.acknowledgeDeletion();
-        printTaskStatus(currentTask);
-        tasksToDo.remove(indexTaskDelete-1);
-        System.out.println(SEPARATING_LINE);
-        System.out.println();
+        try{
+            int indexTaskDelete = parser.findIndexToDelete(command);
+            Task currentTask = tasksToDo.get(indexTaskDelete-1);
+            System.out.println(SEPARATING_LINE);
+            ui.acknowledgeDeletion();
+            printTaskStatus(currentTask);
+            tasksToDo.remove(indexTaskDelete-1);
+            System.out.println(SEPARATING_LINE);
+            System.out.println();
+        } catch(StringIndexOutOfBoundsException e){
+            ui.showMissingDeletionIndex();
+        } catch(NumberFormatException e){
+            ui.showMissingDeletionIndex();
+        } catch(IndexOutOfBoundsException e){
+            ui.showDeletionOutOfBounds();
+        }
+        
+    }
+
+    /**
+    * Finds tasks with the keyword that the user specified
+    * and prints them as a list
+    *
+    * @param command the current command passed from user input
+    */
+    public void findTask(String command){
+        try{
+            String keyword = parser.extractKeyword(command);
+            ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+
+            if(keyword == null || keyword.trim().length() == 0){
+                throw new EmptyDescriptionException();
+            }
+
+            System.out.println(SEPARATING_LINE);
+
+            for(Task t: tasksToDo){
+                String taskDescription = t.getDescription();
+                if(taskDescription.contains(keyword)){
+                    tasksWithKeyword.add(t);
+                }
+            }
+
+            if(tasksWithKeyword.size() == 0){
+                ui.showNoMatchingTasks();
+            } else{
+                ui.showMatchingTasks();
+                int currentNum = 1;
+
+                for(Task t: tasksWithKeyword){
+                    System.out.print("  " + currentNum + ". ");
+                    currentNum++;
+                    printTaskStatus(t);
+                }
+            }
+        
+            System.out.println(SEPARATING_LINE);
+            System.out.println();
+        } catch(EmptyDescriptionException e){
+            ui.showMissingKeyword();
+        } catch (StringIndexOutOfBoundsException e){
+            ui.showMissingKeyword();
+        }
     }
 
     /**
