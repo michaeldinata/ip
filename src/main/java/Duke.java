@@ -1,59 +1,41 @@
 import java.util.Scanner;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import tasks.Task;
-import tasks.ToDo;
-import tasks.Deadline;
-import tasks.Event;
 
 import exceptions.DukeException;
 import exceptions.EmptyCommandException;
-import exceptions.EmptyDescriptionException;
 import exceptions.InvalidCommandException;
-import exceptions.NoDateGivenException;
 
 import storage.Storage;
 import tasklist.TaskList;
+import ui.Ui;
 
 public class Duke {
 
-    private static final String SEPARATING_LINE = "  ________________________________________";
     private static final String TASK_FILE = "data/tasks.txt";
     private static final String TASK_FOLDER = "data";
     private static TaskList tasks;
     private static Storage storage;
+    private static Ui ui;
 
     public Duke(){
         storage = new Storage(TASK_FOLDER, TASK_FILE);
         try{
             tasks = new TaskList(storage.loadFile());
         } catch(IOException e){
-            System.out.println("Sorry master, I am having difficulties finding" + 
-                                " the tasks you left off with");
+            ui.showLoadingError();
         }
     }
 
     public static void run(){
-        greet();
+        ui = new Ui();
+        ui.greet();
+        new Duke();
         getCommand();
         bye();
     }
 
     public static void main(String[] args){
-        new Duke();
         run();
-    }
-    
-    /**
-    * Greets the user 
-    */
-    private static void greet(){
-        System.out.println(SEPARATING_LINE);
-        System.out.println("Welcome back, master");
-        System.out.println("Your command is my command...");
-        System.out.println(SEPARATING_LINE);
-        System.out.println();
     }
 
     /**
@@ -66,7 +48,7 @@ public class Duke {
         Scanner input = new Scanner(System.in);
 
         while(true){
-            System.out.println("Please give me your command");
+            ui.requestNewCommand();
 
             String command;
 
@@ -97,11 +79,9 @@ public class Duke {
                     throw new InvalidCommandException();
                 }
             } catch(EmptyCommandException e){
-                System.out.println();
-                System.out.println("You did not give me any command");
+                ui.showEmptyCommandError();
             } catch(InvalidCommandException e){
-                System.out.println();
-                System.out.println("Please give me a valid command, master...");
+                ui.showInvalidCommandError();
             }
         }
     }
@@ -113,10 +93,10 @@ public class Duke {
         try{
             storage.saveFile();
         } catch(IOException e){
-            System.out.println("Your file was not saved properly");
+            ui.showFileUnsavedError();
         } catch(NullPointerException e){
-            System.out.println("Your file was not saved properly");
+            ui.showFileUnsavedError();
         }
-        System.out.println("Have a safe journey");
+        ui.bye();
     }
 }
