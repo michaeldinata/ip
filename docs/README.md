@@ -148,7 +148,7 @@ Expected outcome:
 
 ______________________________________________________________________________________________________________________________________
 
- ### `bye`
+### `bye`
 
  This command will save the current task into a file and exits the application
 
