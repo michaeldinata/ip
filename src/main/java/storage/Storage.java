@@ -29,6 +29,8 @@ public class Storage{
     /**
     * Reads the saved task file and creates a
     * file in the directory if it does not exist
+    *
+    * @throws IOException
     */
     public ArrayList<Task> loadFile() throws IOException{
         try{
@@ -143,6 +145,8 @@ public class Storage{
 
     /**
     * Writes the converted list into our task file
+    *
+    * @throws IOException
     */
     public void saveFile() throws IOException{
         FileWriter fw = new FileWriter(filePath);
