@@ -11,16 +11,13 @@ import exceptions.NoDateGivenException;
 
 import java.util.ArrayList;
 import ui.TaskUi;
+import parser.Parser;
 
 public class TaskList{
     private static final String SEPARATING_LINE = "  ________________________________________";
-    private static final int TODO_LEN = 5;
-    private static final int EVENT_LEN = 6;
-    private static final int DEADLINE_LEN = 9;
-    private static final int DONE_LEN = 5;
-    private static final int DELETE_LEN = 7;
     private static ArrayList<Task> tasksToDo = new ArrayList<>();
     private static TaskUi ui = new TaskUi();
+    private static Parser parser = new Parser();
 
     public TaskList(ArrayList<Task> loadedTasks){
         this.tasksToDo = loadedTasks;
@@ -56,7 +53,7 @@ public class TaskList{
     * @param command the current command passed from user input
     */
     public void markAsDone(String command){
-        int indexTaskDone = Integer.parseInt(command.substring(DONE_LEN, command.length()));
+        int indexTaskDone = parser.findIndexOfTaskDone(command);
         Task currentTask = tasksToDo.get(indexTaskDone-1);
         System.out.println(SEPARATING_LINE);
         currentTask.markAsDone();
@@ -74,7 +71,7 @@ public class TaskList{
     public void addNewToDo(String command){
         String extractedCommand;
         try{
-            extractedCommand = command.substring(TODO_LEN, command.length());
+            extractedCommand = parser.extractToDo(command);
             //String[] commands = extractedCommand.split(" ");
             if(extractedCommand == null || extractedCommand.trim().length() == 0){
                 throw new EmptyDescriptionException();
@@ -100,12 +97,12 @@ public class TaskList{
             if(positionOfBy == -1){
                 throw new NoDateGivenException();
             }
-            String extractedCommand = command.substring(DEADLINE_LEN, positionOfBy-1);
+            String extractedCommand = parser.extractDeadline(command, positionOfBy);
             if(extractedCommand == null || extractedCommand.trim().length() == 0){
                 throw new EmptyDescriptionException();
             }
 
-            String by = command.substring(positionOfBy + 4, command.length());
+            String by = parser.extractDate(command, positionOfBy);
             if(by == null || by.trim().length() == 0){
                 throw new NoDateGivenException();
             }
@@ -132,12 +129,12 @@ public class TaskList{
                 throw new NoDateGivenException();
             }
 
-            String extractedCommand = command.substring(EVENT_LEN, positionOfAt-1);
+            String extractedCommand = parser.extractEvent(command, positionOfAt);
             if(extractedCommand == null || extractedCommand.trim().length() == 0){
                 throw new EmptyDescriptionException();
             }
 
-            String at = command.substring(positionOfAt + 4, command.length());
+            String at = parser.extractDate(command, positionOfAt);
             if(at == null || at.trim().length() == 0){
                 throw new NoDateGivenException();
             }
@@ -172,7 +169,7 @@ public class TaskList{
     * @param command the current command passed from user input
     */
     public void deleteTask(String command){
-        int indexTaskDelete = Integer.parseInt(command.substring(DELETE_LEN, command.length()));
+        int indexTaskDelete = parser.findIndexToDelete(command);
         Task currentTask = tasksToDo.get(indexTaskDelete-1);
         System.out.println(SEPARATING_LINE);
         ui.acknowledgeDeletion();
