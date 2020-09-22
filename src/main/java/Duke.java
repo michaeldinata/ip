@@ -1,16 +1,6 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import java.lang.StringBuilder;
+import java.util.ArrayList;
 
 import tasks.Task;
 import tasks.ToDo;
@@ -23,26 +13,46 @@ import exceptions.EmptyDescriptionException;
 import exceptions.InvalidCommandException;
 import exceptions.NoDateGivenException;
 
+import storage.Storage;
+
 public class Duke {
 
-    public static final String SEPARATING_LINE = "  ________________________________________";
-    public static final String LINE_DOWN = "|";
-    public static final int TODO_LEN = 5;
-    public static final int EVENT_LEN = 6;
-    public static final int DEADLINE_LEN = 9;
-    public static final int DONE_LEN = 5;
-<<<<<<< HEAD
-    public static final int DELETE_LEN = 7;
-=======
-    public static final String TASK_FILE = "data/tasks.txt";
-    public static final String TASK_FOLDER = "data";
->>>>>>> branch-Level-7
-    static ArrayList<Task> tasksToDo = new ArrayList<>();
+    private static final String SEPARATING_LINE = "  ________________________________________";
+    private static final int TODO_LEN = 5;
+    private static final int EVENT_LEN = 6;
+    private static final int DEADLINE_LEN = 9;
+    private static final int DONE_LEN = 5;
+    private static final int DELETE_LEN = 7;
+    private static final String TASK_FILE = "data/tasks.txt";
+    private static final String TASK_FOLDER = "data";
+    private static ArrayList<Task> tasksToDo = new ArrayList<>();
+    private static Storage storage;
+
+    public Duke(){
+        storage = new Storage(TASK_FOLDER, TASK_FILE);
+        try{
+            tasksToDo = storage.loadFile();
+            // If there are existing tasks then he is an 
+            // existing user
+            if(tasksToDo.size() > 0){
+                System.out.println("Here is the list that you left off with: ");
+                listOutTasks();
+            }
+        } catch(IOException e){
+            System.out.println("Sorry master, I am having difficulties finding" + 
+                                " the tasks you left off with");
+        }
+    }
+
+    public static void run(){
+        greet();
+        getCommand();
+        bye();
+    }
 
     public static void main(String[] args){
-        greet();
-        GetCommand();
-        bye();
+        new Duke();
+        run();
     }
     
     /**
@@ -62,21 +72,8 @@ public class Duke {
     * Also prompts the user to put in valid commands
     * by resolving exceptions
     */
-    private static void GetCommand(){
+    private static void getCommand(){
         Scanner input = new Scanner(System.in);
-
-        try{
-            readTaskFile();
-            // If there are existing tasks then he is an 
-            // existing user
-            if(tasksToDo.size() > 0){
-                System.out.println("Here is the list that you left off with: ");
-                listOutTasks();
-            } 
-        } catch(IOException e){
-            System.out.println("Sorry master, I am having difficulties finding" + 
-                                " the tasks you left off with");
-        }
 
         while(true){
             System.out.println("Please give me your command");
@@ -288,135 +285,14 @@ public class Duke {
     }
 
     /**
-    * Reads the saved task file and creates a
-    * file in the directory if it does not exist
-    */
-    private static void readTaskFile() throws IOException{
-        try{
-            Files.createDirectories(Paths.get(TASK_FOLDER));
-            Files.createFile(Paths.get(TASK_FILE));
-        } catch(FileAlreadyExistsException e){
-            // We do not need to add new file
-        }
-        
-        File f = new File(TASK_FILE);
-
-        Scanner fileInput = new Scanner(f);
-        while (fileInput.hasNext()) {
-            String line = fileInput.nextLine();
-
-            char taskType = line.charAt(0);
-            char taskStatus = line.charAt(2);
-            String taskDescription = line.substring(4);
-
-            if (taskType == 'T'){
-                Task newToDo = new ToDo(taskDescription);
-                addTaskFromFile(newToDo, taskStatus);
-            } else if(taskType == 'D'){
-                int separator = taskDescription.indexOf(LINE_DOWN);
-                String deadlineDescription = taskDescription.substring(0, separator);
-                String by = taskDescription.substring(separator+1, taskDescription.length());
-                Task newDeadline = new Deadline(deadlineDescription, by);
-                addTaskFromFile(newDeadline, taskStatus);
-            } else if(taskType == 'E'){
-                int separator = taskDescription.indexOf(LINE_DOWN);
-                String eventDescription = taskDescription.substring(0, separator);
-                String at = taskDescription.substring(separator+1, taskDescription.length());
-                Task newDeadline = new Event(eventDescription, at);
-                addTaskFromFile(newDeadline, taskStatus);
-            }
-        }
-    }
-
-    /**
-    * Adds existing tasks from our file into our
-    * array list
-    *
-    * @param task the current task (To Do, Deadline or Event)
-    * @param taskStatus the status of the current task
-    */
-    private static void addTaskFromFile(Task task, char taskStatus){
-        if(taskStatus == '1'){
-            task.markAsDone();
-        }
-        tasksToDo.add(task);
-    }
-
-    /**
-    * Writes the converted list into our task file
-    */
-    private static void writeTaskFile() throws IOException{
-        FileWriter fw = new FileWriter(TASK_FILE);
-        String finalTasks = parseTasksToFile();
-        fw.write(finalTasks);
-        fw.close();
-    }
-
-    /**
-    * Converts the list into our file formatting
-    *
-    * Returns a string to list the existing tasks
-    */
-    private static String parseTasksToFile(){
-        String finalTasks = "";
-        int currentTaskCount = tasksToDo.size();
-        
-        for(int i = 0; i < currentTaskCount; i++){
-            String taskType = "";
-            String status = "";
-            String taskDescription = "";
-            String by = "";
-            String at = "";
-
-            // Get the task type and by/at for deadline/event
-            Task task = tasksToDo.get(i);
-            if(task instanceof ToDo){
-                taskType = "T";
-            } else if(task instanceof Deadline){
-                taskType = "D";
-                by = task.getBy();
-            } else if(task instanceof Event){
-                taskType = "E";
-                at = task.getAt();
-            }
-
-            // Get the task description
-            taskDescription = task.getDescription();
-
-            // Get the task status
-            if(task.getIsDone()){
-                status = "1";
-            } else{
-                status = "0";
-            }
-
-            // Build the whole string
-            String currentTask = taskType + LINE_DOWN +
-                                    status + LINE_DOWN +
-                                    taskDescription;
-            
-            // add by or at if the task is a deadline or event
-            if(task instanceof Deadline){
-                currentTask = currentTask + LINE_DOWN + by;
-            } else if(task instanceof Event){
-                currentTask = currentTask + LINE_DOWN + at;
-            }
-
-            // add current task to the list of tasks 
-            // and add a line separator
-            finalTasks = finalTasks + currentTask + System.lineSeparator();
-        }
-
-        return finalTasks;
-    }
-
-    /**
     * Prints goodbye
     */
     private static void bye(){
         try{
-            writeTaskFile();
+            storage.saveFile();
         } catch(IOException e){
+            System.out.println("Your file was not saved properly");
+        } catch(NullPointerException e){
             System.out.println("Your file was not saved properly");
         }
         System.out.println("Have a safe journey");

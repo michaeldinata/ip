@@ -1,3 +1,0 @@
-T | 1 | do work
-E | 0 | event1 | today 2359
-D | 1 | die | tomorrow
