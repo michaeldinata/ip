@@ -16,6 +16,10 @@ public class TaskUi extends Ui{
         System.out.println("    Nice! I've marked this task as done: ");
     }
 
+    public void showMarkDoneOutOfBounds(){
+        System.out.println("You have to specify a valid task index to mark as done, master");
+    }
+
     public void showMissingToDoDescription(){
         System.out.println();
         System.out.println("Sorry, but you need to describe what to do, master");
@@ -47,6 +51,30 @@ public class TaskUi extends Ui{
 
     public void acknowledgeDeletion(){
         System.out.println("Noted. I have deleted this task:");
+    }
+
+    public void showDeletionOutOfBounds(){
+        System.out.println("You have to specify a valid task index to delete, master");
+    }
+
+    public void showMissingKeyword(){
+        System.out.println("Sorry, but you need to describe what task you are looking for, master");
+    }
+
+    public void showMatchingTasks(){
+        System.out.println("Here are the tasks that match what you are looking for, master");
+    }
+
+    public void showNoMatchingTasks(){
+        System.out.println("There are no matching tasks in your list, master...");
+    }
+
+    public void showMissingDeletionIndex(){
+        System.out.println("You need to specify the index number to delete, master");
+    }
+
+    public void showMissingCompletedIndex(){
+        System.out.println("You need to specify the index number of the task completed, master");
     }
     
 }
