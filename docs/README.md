@@ -45,6 +45,8 @@ Expected outcome:
 `Understood. I've added this into the list.. 
  [T][✘] CS2113 Project`
 
+______________________________________________________________________________________________________________________________________
+
 ### `deadline (action) /by (date/time)` 
 
 This command takes in a description and date/time for a "Deadline" task and adds it into the current existing task list
@@ -59,6 +61,8 @@ Expected outcome:
 
 `Understood. I've added this into the list..`
 `[D][✘] CS2113 Project (by: end of this month)`
+
+______________________________________________________________________________________________________________________________________
 
 ### `event (action) /at (date/time)` 
 
@@ -75,6 +79,8 @@ Expected outcome:
 `Understood. I've added this into the list..` 
 `[E][✘] wedding (at: tomorrow 2359)`
 
+______________________________________________________________________________________________________________________________________
+
 ### `list`
 
 This command will list out all the existing tasks in the list, in the order that they were added into the list
@@ -89,6 +95,8 @@ Expected outcome:
 `1.     [T][✘] CS2113 Project`
 `2.     [E][✘] wedding (at: tomorrow 2359)`
 
+______________________________________________________________________________________________________________________________________
+
 ### `done (taskIndex)`
 
 Command takes in the index of a task as shown in 'list' command, and marks that task as done
@@ -101,6 +109,8 @@ Expected outcome:
 
 `Nice! I've marked this task as done:`
 `[E][✓] wedding (at: tomorrow 2359)`
+
+______________________________________________________________________________________________________________________________________
 
 ### `delete (taskIndex)`
 
@@ -115,6 +125,8 @@ Expected outcome:
 `Noted. I have deleted this task:`
 `[E][✓] wedding (at: tomorrow 2359)`
 
+______________________________________________________________________________________________________________________________________
+
 ### `find (description)`
 
 Command takes in a description and searches through the whole list of tasks, and returns the tasks that matches with the description given by the user
@@ -127,6 +139,8 @@ Expected outcome:
 
 `Here are the tasks that match what you are looking for, master`
 `1.     [T][✘] CS2113 Project`
+
+______________________________________________________________________________________________________________________________________
 
  ### `bye`
 
