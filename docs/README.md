@@ -61,6 +61,7 @@ Example of usage:
 Expected outcome:
 
 `Understood. I've added this into the list..`
+
 `[D][✘] CS2113 Project (by: end of this month)`
 
 ______________________________________________________________________________________________________________________________________
@@ -78,6 +79,7 @@ Example of usage:
 Expected outcome:
 
 `Understood. I've added this into the list..` 
+
 `[E][✘] wedding (at: tomorrow 2359)`
 
 ______________________________________________________________________________________________________________________________________
@@ -150,12 +152,12 @@ ________________________________________________________________________________
 
 ### `bye`
 
- This command will save the current task into a file and exits the application
+This command will save the current task into a file and exits the application
 
- Example of usage:
+Example of usage:
 
- `bye`
+`bye`
 
- Expected outcome:
+Expected outcome:
 
 `Have a safe journey`
