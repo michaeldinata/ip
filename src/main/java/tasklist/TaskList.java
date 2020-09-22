@@ -10,6 +10,7 @@ import exceptions.EmptyDescriptionException;
 import exceptions.NoDateGivenException;
 
 import java.util.ArrayList;
+import ui.TaskUi;
 
 public class TaskList{
     private static final String SEPARATING_LINE = "  ________________________________________";
@@ -19,11 +20,12 @@ public class TaskList{
     private static final int DONE_LEN = 5;
     private static final int DELETE_LEN = 7;
     private static ArrayList<Task> tasksToDo = new ArrayList<>();
+    private static TaskUi ui = new TaskUi();
 
     public TaskList(ArrayList<Task> loadedTasks){
         this.tasksToDo = loadedTasks;
         if(tasksToDo.size() > 0){
-            System.out.println("Here is the list that you left off with: ");
+            ui.showLeftoverTask();
             listOutTasks();
         }
     }
@@ -35,8 +37,7 @@ public class TaskList{
     public void listOutTasks(){
         System.out.println(SEPARATING_LINE);
         int currentTaskCount = tasksToDo.size();
-        System.out.println("    You currently have " + currentTaskCount 
-                            + " items to do in your list, master...");
+        ui.showCurrentTaskCount(currentTaskCount);
         for(int i = 0; i < currentTaskCount; i++){
             Task currentTask = tasksToDo.get(i);
             int currentNum = i+1;
@@ -59,7 +60,7 @@ public class TaskList{
         Task currentTask = tasksToDo.get(indexTaskDone-1);
         System.out.println(SEPARATING_LINE);
         currentTask.markAsDone();
-        System.out.println("    Nice! I've marked this task as done: ");
+        ui.showMarkTaskAsDone();
         printTaskStatus(currentTask);
         System.out.println(SEPARATING_LINE);
         System.out.println();
@@ -82,11 +83,9 @@ public class TaskList{
             tasksToDo.add(newToDo);
             acknowledgeTaskAddition(newToDo);
         } catch(StringIndexOutOfBoundsException e){
-            System.out.println();
-            System.out.println("Sorry, but you need to describe what to do, master");
+            ui.showMissingToDoDescription();
         } catch(EmptyDescriptionException e){
-            System.out.println();
-            System.out.println("Sorry, but you need to describe what to do, master");
+            ui.showMissingToDoDescription();
         }
     }
 
@@ -115,11 +114,9 @@ public class TaskList{
             tasksToDo.add(newDeadline);
             acknowledgeTaskAddition(newDeadline);
         } catch(NoDateGivenException e){
-            System.out.println();
-            System.out.println("You need to tell me when this task is due, master");
+            ui.showMissingDeadlineDate();
         } catch(EmptyDescriptionException e){
-            System.out.println();
-            System.out.println("Sorry, but you need to describe what deadline this is, master");
+            ui.showMissingDeadlineDescription();
         }
     }
 
@@ -149,11 +146,9 @@ public class TaskList{
             tasksToDo.add(newEvent);
             acknowledgeTaskAddition(newEvent);
         } catch(NoDateGivenException e){
-            System.out.println();
-            System.out.println("You need to tell me when this event is at, master");
+            ui.showMissingEventDate();
         } catch(EmptyDescriptionException e){
-            System.out.println();
-            System.out.println("Sorry, but you need to describe what event this is, master");
+            ui.showMissingEventDescription();
         }
     }
 
@@ -165,7 +160,7 @@ public class TaskList{
     */
     public void acknowledgeTaskAddition(Task task){
         System.out.println(SEPARATING_LINE);
-        System.out.println("    Understood. I've added this into the list.. ");
+        ui.acknowledgeAddition();
         printTaskStatus(task);
         System.out.println(SEPARATING_LINE);
         System.out.println();
@@ -180,7 +175,7 @@ public class TaskList{
         int indexTaskDelete = Integer.parseInt(command.substring(DELETE_LEN, command.length()));
         Task currentTask = tasksToDo.get(indexTaskDelete-1);
         System.out.println(SEPARATING_LINE);
-        System.out.println("Noted. I have deleted this task:");
+        ui.acknowledgeDeletion();
         printTaskStatus(currentTask);
         tasksToDo.remove(indexTaskDelete-1);
         System.out.println(SEPARATING_LINE);
