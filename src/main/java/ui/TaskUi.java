@@ -29,6 +29,15 @@ public class TaskUi extends Ui{
     }
 
     /**
+    * Prints out a line to tell the user to input a 
+    * valid task index to mark as done
+    *
+    */
+    public void showMarkDoneOutOfBounds(){
+        System.out.println("You have to specify a valid task index to mark as done, master");
+    }
+
+    /**
     * Prints out a line to tell the user that the 
     * To Do description is missing 
     *
@@ -94,6 +103,60 @@ public class TaskUi extends Ui{
     */
     public void acknowledgeDeletion(){
         System.out.println("Noted. I have deleted this task:");
+    }
+
+    /**
+    * Prints out a line to tell the user to input a 
+    * valid task index to delete
+    *
+    */
+    public void showDeletionOutOfBounds(){
+        System.out.println("You have to specify a valid task index to delete, master");
+    }
+
+    /**
+    * Prints out a line to tell the user that the 
+    * description of task he is looking for is missing
+    *
+    */
+    public void showMissingKeyword(){
+        System.out.println("Sorry, but you need to describe what task you are looking for, master");
+    }   
+
+    /**
+    * Prints out a line to tell the user the
+    * tasks that match with the inputted keywords
+    *
+    */
+    public void showMatchingTasks(){
+        System.out.println("Here are the tasks that match what you are looking for, master");
+    }
+
+    /**
+    * Prints out a line to tell the user that there are no
+    * tasks that match with the inputted keywords
+    *
+    */
+    public void showNoMatchingTasks(){
+        System.out.println("There are no matching tasks in your list, master...");
+    }
+
+    /**
+    * Prints out a line to tell the user that the 
+    * index to delete a task is missing
+    *
+    */
+    public void showMissingDeletionIndex(){
+        System.out.println("You need to specify the index number to delete, master");
+    }
+
+    /**
+    * Prints out a line to tell the user that the 
+    * index to complete a task is missing
+    *
+    */
+    public void showMissingCompletedIndex(){
+        System.out.println("You need to specify the index number of the task completed, master");
     }
     
 }
