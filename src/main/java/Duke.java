@@ -43,6 +43,7 @@ public class Duke {
     * until the user types out "bye".
     * Also prompts the user to put in valid commands
     * by resolving exceptions
+    *
     */
     private static void getCommand(){
         Scanner input = new Scanner(System.in);
@@ -90,6 +91,7 @@ public class Duke {
 
     /**
     * Prints goodbye
+    *
     */
     private static void bye(){
         try{
