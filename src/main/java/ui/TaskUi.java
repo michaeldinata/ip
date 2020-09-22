@@ -102,7 +102,7 @@ public class TaskUi extends Ui{
     *
     */
     public void acknowledgeDeletion(){
-        System.out.println("Noted. I have deleted this task:");
+        System.out.println("    Noted. I have deleted this task:");
     }
 
     /**
@@ -129,7 +129,7 @@ public class TaskUi extends Ui{
     *
     */
     public void showMatchingTasks(){
-        System.out.println("Here are the tasks that match what you are looking for, master");
+        System.out.println("    Here are the tasks that match what you are looking for, master");
     }
 
     /**
