@@ -42,8 +42,9 @@ Example of usage:
 
 Expected outcome:
 
-`Understood. I've added this into the list.. 
- [T][✘] CS2113 Project`
+`Understood. I've added this into the list..`
+
+`[T][✘] CS2113 Project`
 
 ______________________________________________________________________________________________________________________________________
 
@@ -60,6 +61,7 @@ Example of usage:
 Expected outcome:
 
 `Understood. I've added this into the list..`
+
 `[D][✘] CS2113 Project (by: end of this month)`
 
 ______________________________________________________________________________________________________________________________________
@@ -77,6 +79,7 @@ Example of usage:
 Expected outcome:
 
 `Understood. I've added this into the list..` 
+
 `[E][✘] wedding (at: tomorrow 2359)`
 
 ______________________________________________________________________________________________________________________________________
@@ -92,7 +95,9 @@ Example of usage:
 Expected outcome:
 
 `You currently have 4 items to do in your list, master...`
+
 `1.     [T][✘] CS2113 Project`
+
 `2.     [E][✘] wedding (at: tomorrow 2359)`
 
 ______________________________________________________________________________________________________________________________________
@@ -108,6 +113,7 @@ Example of usage:
 Expected outcome:
 
 `Nice! I've marked this task as done:`
+
 `[E][✓] wedding (at: tomorrow 2359)`
 
 ______________________________________________________________________________________________________________________________________
@@ -123,6 +129,7 @@ Example of usage:
 Expected outcome:
 
 `Noted. I have deleted this task:`
+
 `[E][✓] wedding (at: tomorrow 2359)`
 
 ______________________________________________________________________________________________________________________________________
@@ -138,6 +145,7 @@ Example of usage:
 Expected outcome:
 
 `Here are the tasks that match what you are looking for, master`
+
 `1.     [T][✘] CS2113 Project`
 
 ______________________________________________________________________________________________________________________________________
